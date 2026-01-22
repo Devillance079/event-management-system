@@ -13,7 +13,7 @@ import { Navbar } from './navbar/navbar';
     </main>
   `,
   styles: [`
-    main { padding: 20px; background: #f5f5f5; min-height: 100vh; }
+    main { padding: 0; background: #050505; min-height: 100vh; }
   `]
 })
 export class App {}

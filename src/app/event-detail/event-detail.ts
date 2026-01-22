@@ -60,9 +60,9 @@ import { Event } from '../models/event';
     </div>
   `,
   styles: [`
-    .container { max-width: 800px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .container { max-width: 800px; margin: 20px auto; padding: 20px; background: #1e1e1e; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.5); color: white; }
     mat-form-field { width: 100%; margin-bottom: 15px; }
-    .booking-section { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-top: 20px; }
+    .booking-section { background: #2c2c2c; padding: 20px; border-radius: 8px; margin-top: 20px; }
   `]
 })
 export class EventDetail implements OnInit {
@@ -76,7 +76,6 @@ export class EventDetail implements OnInit {
     private fb: FormBuilder,
     private snackBar: MatSnackBar
   ) {
-    // Reactive Form Initialization
     this.bookingForm = this.fb.group({
       userName: ['', Validators.required],
       userEmail: ['', [Validators.required, Validators.email]],
@@ -86,7 +85,7 @@ export class EventDetail implements OnInit {
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.eventService.getEventById(id).subscribe(data => {
+    this.eventService.getEventById(id).subscribe((data: Event | undefined) => {
       this.event = data;
     });
   }
@@ -99,9 +98,9 @@ export class EventDetail implements OnInit {
         date: new Date()
       };
       
-      this.eventService.createBooking(bookingData).subscribe(success => {
+      this.eventService.createBooking(bookingData).subscribe((success: boolean) => {
         this.snackBar.open('Booking Confirmed!', 'Close', { duration: 3000 });
-        this.router.navigate(['/']);
+        this.router.navigate(['/events']);
       });
     }
   }
